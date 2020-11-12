@@ -27,8 +27,9 @@ function CreatePerson() {
     const handleSubmit = (e) => {
       e.preventDefault();
       const type = typeSelected === "CPF" ? "naturalPerson" : "legalPerson";
-      createPerson(type, name, doc, UF, city, phone, birthDate);
-      window.location.href = '/admin';
+      const response = createPerson(type, name, doc, UF, city, phone, birthDate);
+      console.log(response);
+      //window.location.href = '/admin';
     }
 
     return (

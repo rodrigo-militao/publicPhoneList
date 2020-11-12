@@ -3,6 +3,7 @@ const rescue = require('express-rescue');
 const Boom = require('boom');
 
 const personService = require('../services/personService');
+const validator = require('../middlewares/personValidation');
 
 const personRouter = express.Router();
 
@@ -62,8 +63,8 @@ const searchPerson = rescue(async (req, res, next) => {
 personRouter
   .route('/')
   .get(getCount)
-  .post(createPerson)
-  .put(updatePerson)
+  .post(validator, createPerson)
+  .put(validator, updatePerson)
 
 personRouter
   .route('/page/:pageNumber')

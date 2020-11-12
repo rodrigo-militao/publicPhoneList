@@ -38,9 +38,10 @@ function UpdatePerson() {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      updatePerson(id, type, name, doc, UF, city, phone);
-
-      window.location.href = "/admin";
+      updatePerson(id, type, name, doc, UF, city, phone).then((res) => {
+        if(!res.message) return window.location.href = "/admin";;
+      });
+      
     }
 
     return (
