@@ -15,6 +15,7 @@ function CreatePerson() {
     const [cityList, setCityList] = useState([]);
     const [phone, setPhone] = useState("");
     const [birthDate, setBirthDate] = useState("");
+    const [error, setError] = useState("");
 
     useEffect(() => {
       findUFs().then((data) => setUFList(data));
@@ -27,9 +28,11 @@ function CreatePerson() {
     const handleSubmit = (e) => {
       e.preventDefault();
       const type = typeSelected === "CPF" ? "naturalPerson" : "legalPerson";
-      const response = createPerson(type, name, doc, UF, city, phone, birthDate);
-      console.log(response);
-      //window.location.href = '/admin';
+      createPerson(type, name, doc, UF, city, phone, birthDate).then(res => {
+        if(!res.message) return window.location.href = '/admin';
+        setError(res.message);
+      });
+      
     }
 
     return (
@@ -132,6 +135,7 @@ function CreatePerson() {
           />
         </div>
       </form>
+      <p className="text-danger">{error}</p>
       </div>
       <a href="/admin">Voltar para a lista de pessoas</a>
     </div>

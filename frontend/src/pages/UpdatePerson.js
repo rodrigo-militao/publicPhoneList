@@ -17,6 +17,7 @@ function UpdatePerson() {
     const [city, setCity] = useState("");
     const [cityList, setCityList] = useState([]);
     const [phone, setPhone] = useState("");
+    const [error, setError] = useState("");
 
     useEffect(() => {
       listOne(id).then((data) => {
@@ -39,7 +40,8 @@ function UpdatePerson() {
     const handleSubmit = (e) => {
       e.preventDefault();
       updatePerson(id, type, name, doc, UF, city, phone).then((res) => {
-        if(!res.message) return window.location.href = "/admin";;
+        if(!res.message) return window.location.href = "/admin";
+        setError(res.message);
       });
       
     }
@@ -126,6 +128,7 @@ function UpdatePerson() {
           />
         </div>
       </form>
+      <p className="text-danger">{error}</p>
       </div>
       <a href="/admin">Voltar para a lista de pessoas</a>
     </div>
